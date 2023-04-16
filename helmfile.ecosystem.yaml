@@ -1,0 +1,28 @@
+repositories:
+- name: stable
+  url: https://kubernetes-sigs.github.io/metrics-server/
+
+helmDefaults:
+  tillerless: true
+  verify: false
+  wait: true
+  timeout: 200
+
+releases:
+- name: metrics-server
+  namespace: kube-system
+  chart: metrics-server/metrics-server
+
+- name: ingress
+  namespace: kube-system
+  chart: ingress-nginx/ingress-nginx
+  version: 0.17.0 
+  values:
+  - rbac:
+      create: true
+    # controller:
+    #   extraArgs:
+    ## Depends on your cloud-provider. However, locally, it is must
+    #     default-ssl-certificate: namespace/secret-tls-wildcard
+
+ 
